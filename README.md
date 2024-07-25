@@ -32,7 +32,9 @@ There, you can see some more information about any brewery.
 You can reset this part by clicking on the "refresh" button located at the right side of the subtitle "Breweries".
 
 # Additional information
-I just want to apologize for the bad design of my app, it is due to multiple points :
+1. I just want to apologize for the bad design of my app, it is due to multiple points :
 * I'm officially colorblind thus I can not be efficient in this aspect
 * I did not have much time because of my full-time work for which I have lot of work
 * I'm really bad at designing (I'm usually working with mockups done by other team members)
+
+2. Don't worry I know we should not work directly on the Git "main" branch for big/company projects. I did it here because I was the only one working on the app.
