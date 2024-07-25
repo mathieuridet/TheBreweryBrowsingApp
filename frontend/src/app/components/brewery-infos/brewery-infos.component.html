@@ -1,0 +1,19 @@
+<div class="card" *ngIf="this.brewery_infos != undefined">
+    <div class="card-body">
+        <div style="text-align: center;">
+            <h3 class="card-title">Brewery infos</h3>
+            <h5 class="card-subtitle">
+                {{this.brewery_infos.name ? this.brewery_infos.name : 'No brewery selected'}}
+                <mat-icon aria-hidden="false" aria-label="favorite icon" *ngIf="this.brewery_infos?.favorite" fontIcon="favorite"></mat-icon>
+            </h5>
+        </div>
+        <div *ngIf="this.brewery_infos.name">
+            <p>Type : {{this.brewery_infos.brewery_type}}</p>
+            <p>City : {{this.brewery_infos.city}}</p>
+            <p>Website url : {{this.brewery_infos.website_url}}</p>
+            <p>Address : {{this.brewery_infos.address_1}}</p>
+            <p>Phone number: {{this.brewery_infos.phone}}</p>
+            <p>Opening hours: Unknown</p>
+        </div>
+    </div>
+  </div>

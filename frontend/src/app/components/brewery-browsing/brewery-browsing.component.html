@@ -1,0 +1,87 @@
+<div>
+    <div class="row">
+      <div class="col-2" style="display: flex;">
+        <h3 style="display: flex; align-self: center;">Breweries</h3>
+      </div>
+      <div class="col">
+        <button style="border-radius: 10%; background-color: white;" (click)="resetSearch()">
+          <mat-icon aria-hidden="false" aria-label="refresh icon" fontIcon="refresh"></mat-icon>
+        </button>
+        <button [style]="this.listFavoritesMode ? 'background-color: #E8E8E8;' : 'background-color: white;'" style="border-radius: 10%; margin-left: 1%;" (click)="listFavorites()">
+          <mat-icon aria-hidden="false" aria-label="favorite icon" fontIcon="favorite"></mat-icon>
+        </button>
+      </div>
+    </div>
+    <form (ngSubmit)="searchBreweries()" class="row d-flex align-items-center">
+      <label for="table-search-by-name" class="col-xs-3 col-sm-auto col-form-label d-flex align-items-center">
+        Name
+        <mat-icon matTooltip="Enter a name to be able to filter by type or city" aria-hidden="false" aria-label="info icon" fontIcon="info"></mat-icon>
+      </label>
+      <div class="col-xs-3 col-sm-auto">
+        <input id="table-search-by-name" class="form-control" type="text" name="name" [(ngModel)]="search_name" />
+      </div>
+
+      <label for="table-filtering-by-city" class="col-xs-3 col-sm-auto col-form-label">City</label>
+      <div class="col-xs-3 col-sm-auto">
+        <input [disabled]="!this.search_name || this.search_name == ''" id="table-filtering-by-city" 
+        class="form-control" type="text" name="city" [(ngModel)]="search_city" placeholder="Filter by city"/>
+      </div>
+
+      <label for="table-filtering-by-type" class="col-xs-3 col-sm-auto col-form-label">Type</label>
+      <mat-form-field  class="col-xs-3 col-sm-auto d-flex align-items-center">
+        <mat-label>Filter by type</mat-label>
+        <mat-select id="table-filtering-by-type" name="type" [disabled]="!this.search_name || this.search_name == ''" [(ngModel)]="search_type">
+          @for (type of types; track type) {
+            <mat-option [value]="type.value">{{type.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+            
+      <div class="col">
+        <input class="form-control" [disabled]="!this.search_name || this.search_name == ''" type="submit" value="Search"/>
+      </div>
+    </form>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Type</th>
+          <th scope="col">City</th>
+          <th scope="col">Website URL</th>
+          <th scope="col">Infos</th>
+          <th scope="col">Favorite</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="this.searched_breweries != undefined && this.searched_breweries.length > 0">
+        <tr *ngFor="let brewery of this.searched_breweries; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{brewery.name}}</td>
+          <td>{{brewery.brewery_type}}</td>
+          <td>{{brewery.city}}</td>
+          <td>{{brewery.website_url}}</td>
+          <td>
+            <button (click)="this.displayBrewery(brewery)">
+              <mat-icon aria-hidden="false" aria-label="display icon" fontIcon="zoom_in"></mat-icon>
+            </button>
+          </td>
+          <td>
+            <button (click)="this.removeFromFavorite(brewery)" *ngIf="brewery.favorite"><mat-icon aria-hidden="false" aria-label="remove icon" fontIcon="remove"></mat-icon></button>
+            <button (click)="this.addToFavorite(brewery)" *ngIf="!brewery.favorite"><mat-icon aria-hidden="false" aria-label="add icon" fontIcon="add"></mat-icon></button>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="this.searched_breweries == undefined || this.searched_breweries.length == 0">
+        <tr>
+          <td colspan="7" style="text-align: center">No brewery found</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator [length]="200"
+              [pageSize]="5"
+              aria-label="Select page"
+              (page)="handlePage($event)">
+    </mat-paginator>
+</div>

@@ -1,0 +1,15 @@
+<router-outlet>
+  <div class="mx-5 mt-2">
+    <h2>The Brewery Browsing Application</h2>
+    <div class="row">
+      <div class="col-9">
+        <app-brewery-browsing (brewery_infos)="setBreweryToDisplay($event)"></app-brewery-browsing>
+      </div>
+      <div class="col">
+        <app-brewery-infos [brewery_infos]="this.brewery_to_display"></app-brewery-infos>
+      </div>
+    </div>
+  </div>
+  
+
+<router-outlet />
